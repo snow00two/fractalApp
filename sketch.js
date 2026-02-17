@@ -97,7 +97,7 @@ function setup() {
   figChoice.option('Alt Koch flake', 'hexagonAlt'); /*alternative of Koch flake *  figChoice.option('Koch curve', 'koch'); /* Koch curve */
   figChoice.option('Koch curve', 'koch'); /* Koch curve */
   figChoice.option('Alt Koch curve', 'kochAlt'); /*Alt Koch curve */
-  figChoice.selected('gasket');
+  figChoice.selected('auto');
   figChoice.position(10, 8);
   figChoice.changed( resetBackground ) ;
 
@@ -106,7 +106,7 @@ function setup() {
   flowChoice.option('compact', 'compact');
   flowChoice.option('expanding flow', 'expanding');
   flowChoice.option('shrinking flow', 'shrinking');
-  flowChoice.selected('compact');
+  flowChoice.selected('auto');
   flowChoice.position(200, 8);
   flowChoice.changed( resetBackground ) ;
 
