@@ -1,6 +1,6 @@
 /* Sierpinski gasket, Sierpinski carpet, Koch flake etc. ; 
  * compact and expanding or shrinking flow version--for video
- * 2024/06/07 version 0.221, Yukio Otsu (Kyushu University), 
+ * version 0.3, 2026/02/18, snow00two,
  * \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\ccbyncsa}
  */
 /* canvas setting */
