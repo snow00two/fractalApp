@@ -4,11 +4,11 @@
  * \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\ccbyncsa}
  */
 /* canvas setting */
-const WIDTH_CANVAS = 720 * 3/2  ; //=1080
-const HEIGHT_CANVAS = 405 * 3/2 ; //=607.5
-const CENTER_X = WIDTH_CANVAS/2 ;
-const CENTER_Y = HEIGHT_CANVAS/2 ;
-const QUARTER_Y = HEIGHT_CANVAS/4 ;
+let WIDTH_CANVAS = 720 * 3 / 2; //=1080　similar to infty 
+let HEIGHT_CANVAS = 405 * 3 / 2; //=607.5 similar to infty
+let CENTER_X = WIDTH_CANVAS / 2;
+let CENTER_Y = HEIGHT_CANVAS / 2;
+let QUARTER_Y = HEIGHT_CANVAS/4 ;
 
 /* color setting */
 const DARK_COLOR = [150,30,50];
@@ -21,9 +21,10 @@ const FACTOR_2 = 1.021897149; //=2^{1/32} computed in ./p5/maple1.mw
 const FACTOR_3 = 1.034927767; //=3^{1/32}
 const FACTOR_5 = 1.030532582; //=\tau^{16}=((3 + sqrt(5))/2)^{1/32}
 
+let scaleCanvas = HEIGHT_CANVAS;
 /* Sierpinski gasket setting, abbr. 3 */
-const BASE_SEGMENT_3 = 500;
-const centerBase3 = BASE_SEGMENT_3/2;/* sqrt(3) is not defind here so we cannot define radius3 etc */
+let BASE_SEGMENT_3 = 500;
+let centerBase3 = BASE_SEGMENT_3/2;/* sqrt(3) is not defind here so we cannot define radius3 etc */
 let height3;
 let radius3;
 let shift3Y;
@@ -31,29 +32,29 @@ let fixed3X;
 let fixed3Y;
 
 /* Sierpinski carpet setting, abbr. 4 */
-const BASE_SEGMENT_4 = 450 ;
-const FIXED_4_X = ( WIDTH_CANVAS - BASE_SEGMENT_4 ) / 2;
-const FIXED_4_Y = ( HEIGHT_CANVAS - BASE_SEGMENT_4 ) / 2;
+let BASE_SEGMENT_4 = 450 ;
+let FIXED_4_X = ( WIDTH_CANVAS - BASE_SEGMENT_4 ) / 2;
+let FIXED_4_Y = ( HEIGHT_CANVAS - BASE_SEGMENT_4 ) / 2;
 
 /* Pentagram carpet setting, abbr. 5 */
-const BASE_SEGMENT_5 = 250 ;
-const SHIFT_5_Y = 20;
+let BASE_SEGMENT_5 = 250 ;
+let SHIFT_5_Y = 20;
 let scale5 ;
 let trans5Y ;
 let rotate5 ;
 
 /* Koch flake setting, abbr. 6  */
-const BASE_SEGMENT_6 = 250 ;
-const WIDTH_6 = BASE_SEGMENT_6/2 ;
+let BASE_SEGMENT_6 = 250 ;
+let WIDTH_6 = BASE_SEGMENT_6/2 ;
 let height6 ; 
 let subHeight6 ;
 let trans6X ;
 let trans6Y ;
 
 /* Koch curve setting, abbr. koch */
-const BASE_SEGMENT_KOCH = 400;
-const BASE_SEGMENT_KOCH_2 = 2 * BASE_SEGMENT_KOCH;
-const BASE_SEGMENT_KOCH_3 = 3 * BASE_SEGMENT_KOCH;
+let BASE_SEGMENT_KOCH = 400;
+let BASE_SEGMENT_KOCH_2 = 2 * BASE_SEGMENT_KOCH;
+let BASE_SEGMENT_KOCH_3 = 3 * BASE_SEGMENT_KOCH;
 
 /* variable for setup */
 let figChoice ; 
@@ -71,6 +72,24 @@ let rotationAngle ;
 let altVar = 0;
 
 function setup() {
+  WIDTH_CANVAS = windowWidth ;
+  HEIGHT_CANVAS = windowHeight ;
+  CENTER_X = windowWidth / 2;
+  CENTER_Y = windowHeight / 2;
+  scaleCanvas = min(WIDTH_CANVAS, HEIGHT_CANVAS);
+  BASE_SEGMENT_3 = scaleCanvas * 5 / 12;
+  centerBase3 = BASE_SEGMENT_3/2;
+  BASE_SEGMENT_4 = scaleCanvas * 3 / 8;
+  FIXED_4_X = ( WIDTH_CANVAS - BASE_SEGMENT_4 ) / 2;
+  FIXED_4_Y = ( HEIGHT_CANVAS - BASE_SEGMENT_4 ) / 2;
+  BASE_SEGMENT_5 = scaleCanvas * 1 / 4;
+  SHIFT_5_Y = scaleCanvas * 1 / 20;
+  BASE_SEGMENT_6 = scaleCanvas * 1 / 4;
+  WIDTH_6 = BASE_SEGMENT_6/2;
+  BASE_SEGMENT_KOCH = scaleCanvas * 5 / 12;
+  BASE_SEGMENT_KOCH_2 = 2 * BASE_SEGMENT_KOCH;
+  BASE_SEGMENT_KOCH_3 = 3 * BASE_SEGMENT_KOCH;
+
   height3 = sqrt(3)* BASE_SEGMENT_3 / 2; /* sqrt(3) is defind here */
   radius3 = 2 * height3 /3 ; /* the radius of circumscribed circle  */
   fixed3X = ( WIDTH_CANVAS - BASE_SEGMENT_3 ) / 2 ;
