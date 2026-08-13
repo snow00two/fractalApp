@@ -4,11 +4,11 @@
  * \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\ccbyncsa}
  */
 /* canvas setting */
-let WIDTH_CANVAS = 720 * 3 / 2; //=1080　similar to infty 
-let HEIGHT_CANVAS = 405 * 3 / 2; //=607.5 similar to infty
-let CENTER_X = WIDTH_CANVAS / 2;
-let CENTER_Y = HEIGHT_CANVAS / 2;
-let QUARTER_Y = HEIGHT_CANVAS/4 ;
+let widthCanvas = 720 * 3 / 2; //=1080　similar to infty 
+let heightCanvas = 405 * 3 / 2; //=607.5 similar to infty
+let centerX = widthCanvas / 2;
+let centerY = heightCanvas / 2;
+let quarterY = heightCanvas/4 ;
 
 /* color setting */
 const DARK_COLOR = [150,30,50];
@@ -21,10 +21,10 @@ const FACTOR_2 = 1.021897149; //=2^{1/32} computed in ./p5/maple1.mw
 const FACTOR_3 = 1.034927767; //=3^{1/32}
 const FACTOR_5 = 1.030532582; //=\tau^{16}=((3 + sqrt(5))/2)^{1/32}
 
-let scaleCanvas = HEIGHT_CANVAS;
+let scaleCanvas = heightCanvas;
 /* Sierpinski gasket setting, abbr. 3 */
-let BASE_SEGMENT_3 = 500;
-let centerBase3 = BASE_SEGMENT_3/2;/* sqrt(3) is not defind here so we cannot define radius3 etc */
+let baseSegment3 = 500;
+let centerBase3 = baseSegment3/2;/* sqrt(3) is not defind here so we cannot define radius3 etc */
 let height3;
 let radius3;
 let shift3Y;
@@ -32,29 +32,29 @@ let fixed3X;
 let fixed3Y;
 
 /* Sierpinski carpet setting, abbr. 4 */
-let BASE_SEGMENT_4 = 450 ;
-let FIXED_4_X = ( WIDTH_CANVAS - BASE_SEGMENT_4 ) / 2;
-let FIXED_4_Y = ( HEIGHT_CANVAS - BASE_SEGMENT_4 ) / 2;
+let baseSegment4 = 450 ;
+let fixed4X = ( widthCanvas - baseSegment4 ) / 2;
+let fixed4Y = ( heightCanvas - baseSegment4 ) / 2;
 
 /* Pentagram carpet setting, abbr. 5 */
-let BASE_SEGMENT_5 = 250 ;
-let SHIFT_5_Y = 20;
+let baseSegment5 = 250 ;
+let shift5Y = 20;
 let scale5 ;
 let trans5Y ;
 let rotate5 ;
 
 /* Koch flake setting, abbr. 6  */
-let BASE_SEGMENT_6 = 250 ;
-let WIDTH_6 = BASE_SEGMENT_6/2 ;
+let baseSegment6 = 250 ;
+let width6 = baseSegment6/2 ;
 let height6 ; 
 let subHeight6 ;
 let trans6X ;
 let trans6Y ;
 
 /* Koch curve setting, abbr. koch */
-let BASE_SEGMENT_KOCH = 400;
-let BASE_SEGMENT_KOCH_2 = 2 * BASE_SEGMENT_KOCH;
-let BASE_SEGMENT_KOCH_3 = 3 * BASE_SEGMENT_KOCH;
+let baseSegmentKoch = 400;
+let baseSegmentKoch2 = 2 * baseSegmentKoch;
+let baseSegmentKoch3 = 3 * baseSegmentKoch;
 
 /* variable for setup */
 let figChoice ; 
@@ -72,37 +72,37 @@ let rotationAngle ;
 let altVar = 0;
 
 function setup() {
-  WIDTH_CANVAS = windowWidth ;
-  HEIGHT_CANVAS = windowHeight ;
-  CENTER_X = windowWidth / 2;
-  CENTER_Y = windowHeight / 2;
-  scaleCanvas = min(WIDTH_CANVAS, HEIGHT_CANVAS);
-  BASE_SEGMENT_3 = scaleCanvas * 5 / 12;
-  centerBase3 = BASE_SEGMENT_3/2;
-  BASE_SEGMENT_4 = scaleCanvas * 3 / 8;
-  FIXED_4_X = ( WIDTH_CANVAS - BASE_SEGMENT_4 ) / 2;
-  FIXED_4_Y = ( HEIGHT_CANVAS - BASE_SEGMENT_4 ) / 2;
-  BASE_SEGMENT_5 = scaleCanvas * 1 / 4;
-  SHIFT_5_Y = scaleCanvas * 1 / 20;
-  BASE_SEGMENT_6 = scaleCanvas * 1 / 4;
-  WIDTH_6 = BASE_SEGMENT_6/2;
-  BASE_SEGMENT_KOCH = scaleCanvas * 5 / 12;
-  BASE_SEGMENT_KOCH_2 = 2 * BASE_SEGMENT_KOCH;
-  BASE_SEGMENT_KOCH_3 = 3 * BASE_SEGMENT_KOCH;
+  widthCanvas = windowWidth ;
+  heightCanvas = windowHeight ;
+  centerX = windowWidth / 2;
+  centerY = windowHeight / 2;
+  scaleCanvas = min(widthCanvas, heightCanvas);
+  baseSegment3 = scaleCanvas * 5 / 6;
+  centerBase3 = baseSegment3/2;
+  baseSegment4 = scaleCanvas * 3 / 4;
+  fixed4X = ( widthCanvas - baseSegment4 ) / 2;
+  fixed4Y = ( heightCanvas - baseSegment4 ) / 2;
+  baseSegment5 = scaleCanvas * 2 / 5;
+  shift5Y = scaleCanvas * 1 / 20;
+  baseSegment6 = scaleCanvas * 2 / 5;
+  width6 = baseSegment6/2;
+  baseSegmentKoch = scaleCanvas * 2 / 3;
+  baseSegmentKoch2 = 2 * baseSegmentKoch;
+  baseSegmentKoch3 = 3 * baseSegmentKoch;
 
-  height3 = sqrt(3)* BASE_SEGMENT_3 / 2; /* sqrt(3) is defind here */
+  height3 = sqrt(3)* baseSegment3 / 2; /* sqrt(3) is defind here */
   radius3 = 2 * height3 /3 ; /* the radius of circumscribed circle  */
-  fixed3X = ( WIDTH_CANVAS - BASE_SEGMENT_3 ) / 2 ;
-  fixed3Y = ( HEIGHT_CANVAS - height3  ) / 2 ;
-  shift3Y= ( HEIGHT_CANVAS - height3 ) / 3 ;
+  fixed3X = ( widthCanvas - baseSegment3 ) / 2 ;
+  fixed3Y = ( heightCanvas - height3  ) / 2 ;
+  shift3Y= ( heightCanvas - height3 ) / 3 ;
 
   scale5 = 2 /(3 + sqrt(5)) ; // 1/tau^2
-  trans5Y = 2 * BASE_SEGMENT_5 * sin(3 * PI / 10);
+  trans5Y = 2 * baseSegment5 * sin(3 * PI / 10);
 
-  height6 = BASE_SEGMENT_6 * sqrt(3)/2 ;
+  height6 = baseSegment6 * sqrt(3)/2 ;
   subHeight6 = height6 / 2 ;
-  trans6X = BASE_SEGMENT_6 * 3/2 ;
-  trans6Y = BASE_SEGMENT_6 * sqrt(3) / 2 ;
+  trans6X = baseSegment6 * 3/2 ;
+  trans6Y = baseSegment6 * sqrt(3) / 2 ;
 
   figChoice = createSelect();/* object setting figure */
   figChoice.option('Random Figure', 'auto'); /* automatic */
@@ -167,12 +167,12 @@ function setup() {
   // }
 
   frameRate(0.6);
-  createCanvas(WIDTH_CANVAS, HEIGHT_CANVAS);
+  createCanvas(widthCanvas, heightCanvas);
   background(backColor);
 }
 
 let n = 0;
-let scalE = 1;
+let scalE = 1;//
 let phaseF = 0;
 let lengthF = 0; 
 
@@ -228,15 +228,15 @@ function draw() {
 
   let rotVal = rotationAngle.value();
   if (rotVal == 'piRot'){
-    translate(CENTER_X, CENTER_Y);
+    translate(centerX, centerY);
     rotate(PI);
-    translate(-CENTER_X, -CENTER_Y);
+    translate(-centerX, -centerY);
   }
   
   background(backColor);
 
   if (presentFigure == 'gasket' && presentFlow == 'compact'){
-    translate(CENTER_X, CENTER_Y - shift3Y);
+    translate(centerX, centerY - shift3Y);
     fill(frontColor);
     iterateTriangleS(n,altVar);
 
@@ -252,7 +252,7 @@ function draw() {
     if (altVar == 0) {
       translate(fixed3X ,fixed3Y) ;//the fixed point of this flow
     } else {
-      translate(CENTER_X, CENTER_Y - shift3Y + radius3);
+      translate(centerX, centerY + shift3Y );//centerY - shift3Y + radius3
     }
     
     let I = 7 ; //Number of iterations
@@ -284,14 +284,14 @@ function draw() {
       } else {
         n = 0 ;
         phaseF = 0;
-        scalE = 1;
+        scalE = 1;//reset scale
       }
     }
   } else if (presentFigure == 'gasket'&& presentFlow == 'shrinking'){
     if (altVar == 0) {
       translate(fixed3X ,fixed3Y) ;//the fixed point of this flow
     } else {
-      translate(CENTER_X, CENTER_Y- shift3Y + radius3);
+      translate(centerX, centerY+ shift3Y );//centerY - shift3Y + radius3
     }
     let I = 8 ; //Number of iterations
     if (phaseF == 0) {//phaseF == 0 :full window Sierpinski gasket
@@ -327,7 +327,7 @@ function draw() {
       }
     }
   } else if (presentFigure == 'carpet'&& presentFlow == 'compact'){ 
-    translate(CENTER_X, CENTER_Y);
+    translate(centerX, centerY);
     fill(frontColor);
     noStroke();
     iterateSquareS(n) ;
@@ -340,7 +340,7 @@ function draw() {
       n = 0 ;
     }
   } else if (presentFigure == 'carpet'&& presentFlow == 'expanding') {
-    translate(CENTER_X,FIXED_4_Y);
+    translate(centerX,fixed4Y);
 
     let I = 6 ; //Number of iterations
     if (phaseF == 0) {//phaseF == 0 
@@ -372,12 +372,12 @@ function draw() {
         n = freezingFrame(switchState,n);
       } else {
         n = 0 ;
-        scalE = 1;
+        scalE = 1;//reset scale
         phaseF =0;
       }
     }
   } else if (presentFigure == 'carpet'&& presentFlow == 'shrinking') {
-    translate(CENTER_X,FIXED_4_Y);
+    translate(centerX,fixed4Y);
 
     let I = 6 ; //Number of iterations
     if (phaseF == 0) {//phaseF == 0 :full window Sierpinski carpet
@@ -416,7 +416,7 @@ function draw() {
       }
     } 
   } else if (presentFigure == 'carpetAlt'&& presentFlow == 'compact'){ 
-    translate(CENTER_X, CENTER_Y);
+    translate(centerX, centerY);
     fill(frontColor);
     noStroke();
     iterateSquareAlt(n) ;
@@ -429,7 +429,7 @@ function draw() {
       n = 0 ;
     }
   } else if (presentFigure == 'carpetAlt'&& presentFlow == 'expanding') {
-    translate(CENTER_X, CENTER_Y);
+    translate(centerX, centerY);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 
@@ -461,12 +461,12 @@ function draw() {
         n = freezingFrame(switchState,n);
       } else {
         n = 0 ;
-        scalE = 1;
+        scalE = 1;//reset scale
         phaseF = 0 ;
       }
     }
   } else if (presentFigure == 'carpetAlt'&& presentFlow == 'shrinking') {
-    translate(CENTER_X, CENTER_Y);
+    translate(centerX, centerY);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 :full window Alt carpet
@@ -504,7 +504,7 @@ function draw() {
       }
     } 
   } else if (presentFigure == 'pentagon'&& presentFlow == 'compact'){
-    translate(CENTER_X , CENTER_Y + SHIFT_5_Y);
+    translate(centerX , centerY + shift5Y);
     fill(frontColor);
     noStroke();
     iteratePentagonS(n, altVar) ;
@@ -517,7 +517,7 @@ function draw() {
       n = 0 ;
     }
   } else if (presentFigure == 'pentagon'&& presentFlow == 'expanding'){
-    translate(CENTER_X,CENTER_Y + SHIFT_5_Y);
+    translate(centerX,centerY + shift5Y);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 
@@ -531,9 +531,9 @@ function draw() {
         scalE = 1 * FACTOR_5;
       }
     } else { //phaseF == 1 :flow 
-      translate(0, -BASE_SEGMENT_5);
+      translate(0, -baseSegment5);
       scale(scalE);
-      translate(0, BASE_SEGMENT_5);
+      translate(0, baseSegment5);
       freezRatio = freezingRatio(switchState, FACTOR_5);
       scalE = scalE * freezRatio;
 
@@ -551,12 +551,12 @@ function draw() {
         n = freezingFrame(switchState,n);
       } else {
         n = 0 ;
-        scalE = 1;
+        scalE = 1;//reset scale
         phaseF = 0 ;
       }
     }
   } else if (presentFigure == 'pentagon'&& presentFlow == 'shrinking'){
-    translate(CENTER_X,CENTER_Y + SHIFT_5_Y);
+    translate(centerX,centerY + shift5Y);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 :full window Sierpinski carpet
@@ -571,9 +571,9 @@ function draw() {
         scalE = (3 + sqrt(5))/(2 *FACTOR_5);
       }
     } else {//phaseF == 1 :flow of Sierpinski carpet
-      translate(0, -BASE_SEGMENT_5);
+      translate(0, -baseSegment5);
       scale(scalE);
-      translate(0, BASE_SEGMENT_5);
+      translate(0, baseSegment5);
 
       freezRatio = freezingRatio(switchState, FACTOR_5);
       scalE = scalE / freezRatio;
@@ -597,7 +597,7 @@ function draw() {
       }
     } 
   } else if (presentFigure == 'hexagon'&& presentFlow == 'compact'){
-    translate(CENTER_X,CENTER_Y);
+    translate(centerX,centerY);
     noStroke();
     fill(frontColor);
     iterateHexagonS(n, altVar);
@@ -610,7 +610,7 @@ function draw() {
       n = 0 ;
     }
   } else if (presentFigure == 'hexagon'&& presentFlow == 'expanding'){
-    translate(CENTER_X,CENTER_Y);
+    translate(centerX,centerY);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 :full window Sierpinski gasket
@@ -647,7 +647,7 @@ function draw() {
       }
     }
   } else if (presentFigure == 'hexagon'&& presentFlow == 'shrinking'){
-    translate(CENTER_X,CENTER_Y);
+    translate(centerX,centerY);
     let I = 6 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 
@@ -685,9 +685,9 @@ function draw() {
       }
     }
   } else if (presentFigure == 'koch'&& presentFlow == 'compact'){
-    translate(CENTER_X,QUARTER_Y);
+    translate(centerX,quarterY);
     fill(frontColor);
-    generateKoch(BASE_SEGMENT_KOCH, altVar,n);
+    generateKoch(baseSegmentKoch, altVar,n);
 
     let I = 11 ; //Number of iterations
     
@@ -698,12 +698,12 @@ function draw() {
       n = 0 ;
     } 
   } else if (presentFigure == 'koch'&& presentFlow == 'expanding'){
-    translate(CENTER_X, QUARTER_Y);
+    translate(centerX, quarterY);
     fill(frontColor);
     let I = 11 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 
-      generateKoch(BASE_SEGMENT_KOCH_2, altVar, n);
+      generateKoch(baseSegmentKoch2, altVar, n);
 
       if( n < I ){
         n = freezingFrame(switchState,n);
@@ -730,9 +730,9 @@ function draw() {
       noStroke();
       let J = 10;// change scale at J step
       if( n < I + J ){
-        generateKoch(BASE_SEGMENT_KOCH_2, altVar, 12);
+        generateKoch(baseSegmentKoch2, altVar, 12);
       } else {
-        generateKoch(BASE_SEGMENT_KOCH_2, altVar, 13);
+        generateKoch(baseSegmentKoch2, altVar, 13);
       }
       let N = 31 ; //=2^4 -1: Number of iterations 
       if( n < I + lengthF * N ){
@@ -748,12 +748,12 @@ function draw() {
       }
     }
   } else if (presentFigure == 'koch'&& presentFlow == 'shrinking'){
-    translate(CENTER_X,QUARTER_Y);
+    translate(centerX,quarterY);
     fill(frontColor);
     let I = 12 ; //Number of iterations
 
     if (phaseF == 0) {//phaseF == 0 
-      generateKoch(BASE_SEGMENT_KOCH_3, altVar, n);
+      generateKoch(baseSegmentKoch3, altVar, n);
 
       if( n < I ){
         n = freezingFrame(switchState,n);
@@ -780,9 +780,9 @@ function draw() {
       noStroke();
       let J = 24;// change scale at J step
       if( n < I + J ){
-        generateKoch(BASE_SEGMENT_KOCH_3, altVar, 14);
+        generateKoch(baseSegmentKoch3, altVar, 14);
       } else {
-        generateKoch(BASE_SEGMENT_KOCH_3, altVar, 13);
+        generateKoch(baseSegmentKoch3, altVar, 13);
       }
       
       let N = 31 ; //=2^4 -1: Number of iterations 
@@ -806,7 +806,7 @@ function iterateTriangleS(num,alt){
     if (num < 1){
         fill(frontColor);
         noStroke();
-        triangle(-BASE_SEGMENT_3 / 2, -radius3 /2, BASE_SEGMENT_3 /2,　-radius3 /2, 0, radius3 );
+        triangle(-baseSegment3 / 2, -radius3 /2, baseSegment3 /2,　-radius3 /2, 0, radius3 );
       //Here we erase the center reverse triangle 
     } else {
         scale( 1 / 2 );
@@ -837,15 +837,15 @@ function iterateTriangleS(num,alt){
 function iterateTriangleSF(num, alt){
   push();
     if (alt == 0){
-      translate(- BASE_SEGMENT_3/2, radius3 /2 );
+      translate(- baseSegment3/2, radius3 /2 );
       noStroke();
       for (let i = 1; i < 3; i++){
         for (let j = 0 ; j < 3; j = j+i){
           /* j=0,1,2 if i=1, j=0, 2 if i=2 */
           iterateTriangleS(num, alt);
-          translate(i * BASE_SEGMENT_3,0) ;//attention: move after drawing
+          translate(i * baseSegment3,0) ;//attention: move after drawing
         }
-        translate(-3.5 * BASE_SEGMENT_3, 3 * radius3 /2 );//attention: move after drawing
+        translate(-3.5 * baseSegment3, 3 * radius3 /2 );//attention: move after drawing
       }
     } else {
       translate(0, - 2 * radius3 );
@@ -861,20 +861,20 @@ function iterateSquareS(num){
     if (num == 0) {
       noStroke();
       fill(frontColor);
-      square(-BASE_SEGMENT_4/2, -BASE_SEGMENT_4/2, BASE_SEGMENT_4 );
+      square(-baseSegment4/2, -baseSegment4/2, baseSegment4 );
     } else {
       scale(1/3);
-      translate(-BASE_SEGMENT_4, BASE_SEGMENT_4);
+      translate(-baseSegment4, baseSegment4);
       for (let l=0;l < 4;l++){
         noStroke();
         fill(frontColor);
         iterateSquareS(num - 1);
-        translate(BASE_SEGMENT_4,0);
+        translate(baseSegment4,0);
         iterateSquareS(num - 1);
-        translate(BASE_SEGMENT_4,0);
+        translate(baseSegment4,0);
         rotate(-PI/2);
       }
-      translate(-BASE_SEGMENT_4, -BASE_SEGMENT_4);
+      translate(-baseSegment4, -baseSegment4);
      }
    pop();
 }
@@ -883,17 +883,17 @@ function iterateSquareSF(num){
   push();
     noStroke();
     fill(frontColor);
-    translate(-BASE_SEGMENT_4, BASE_SEGMENT_4/2);
+    translate(-baseSegment4, baseSegment4/2);
     iterateSquareS(num) ;
-    translate ( BASE_SEGMENT_4,0) ;
+    translate ( baseSegment4,0) ;
     iterateSquareS(num) ;
-    translate ( BASE_SEGMENT_4,0) ;
+    translate ( baseSegment4,0) ;
     iterateSquareS(num) ;
-    translate(-2*BASE_SEGMENT_4,BASE_SEGMENT_4) ;
+    translate(-2*baseSegment4,baseSegment4) ;
     iterateSquareS(num) ;
-    translate ( 2*BASE_SEGMENT_4,0) ;
+    translate ( 2*baseSegment4,0) ;
     iterateSquareS(num) ;
-    translate ( - BASE_SEGMENT_4, -3 * BASE_SEGMENT_4 / 2 ) ;//back to (0,0)
+    translate ( - baseSegment4, -3 * baseSegment4 / 2 ) ;//back to (0,0)
   pop();
 }
 
@@ -902,19 +902,19 @@ function iterateSquareAlt(num){
     if (num == 0) {
       noStroke();
       fill(frontColor);
-      square(-BASE_SEGMENT_4/2, -BASE_SEGMENT_4/2, BASE_SEGMENT_4 );
+      square(-baseSegment4/2, -baseSegment4/2, baseSegment4 );
     } else {
       scale(1/3);
       iterateSquareAlt(num - 1);
-      translate(-BASE_SEGMENT_4, BASE_SEGMENT_4);
+      translate(-baseSegment4, baseSegment4);
       for (let l=0;l < 4;l++){
         noStroke();
         fill(frontColor);
         iterateSquareAlt(num - 1);
-        translate(2 * BASE_SEGMENT_4,0);
+        translate(2 * baseSegment4,0);
         rotate(-PI/2);
       }
-      translate(-BASE_SEGMENT_4, -BASE_SEGMENT_4);
+      translate(-baseSegment4, -baseSegment4);
      }
    pop();
 }
@@ -924,22 +924,22 @@ function iterateSquareAltF(num){
     noStroke();
     fill(frontColor);
     iterateSquareAlt(num);
-      translate(-BASE_SEGMENT_4, BASE_SEGMENT_4);
+      translate(-baseSegment4, baseSegment4);
       for (let l=0;l < 4;l++){
         noStroke();
         fill(frontColor);
         iterateSquareAlt(num );
-        translate(2 * BASE_SEGMENT_4,0);
+        translate(2 * baseSegment4,0);
         rotate(-PI/2);
       }
-      translate(-BASE_SEGMENT_4, -BASE_SEGMENT_4);//back to (0,0)
+      translate(-baseSegment4, -baseSegment4);//back to (0,0)
   pop();
 }
 
 function pentagoN(){
   push();
     for(i = 0; i < 5; i++){
-      triangle(0,0, BASE_SEGMENT_5*cos(3* PI /10 ), BASE_SEGMENT_5*sin(3* PI /10 ), -BASE_SEGMENT_5*cos(3* PI /10), BASE_SEGMENT_5*sin(3* PI /10));
+      triangle(0,0, baseSegment5*cos(3* PI /10 ), baseSegment5*sin(3* PI /10 ), -baseSegment5*cos(3* PI /10), baseSegment5*sin(3* PI /10));
       rotate(2 * PI /5);
     }
     rotate(2* PI /5);
@@ -977,13 +977,13 @@ function iteratePentagonSF(num, alt){
       rotate(PI);
       translate(0,-trans5Y);
     }
-    translate(BASE_SEGMENT_5*cos(3* PI /10 ), BASE_SEGMENT_5*sin(3* PI /10 ));
-    translate(BASE_SEGMENT_5*cos( PI /10 ), BASE_SEGMENT_5*sin(PI /10 ));
+    translate(baseSegment5*cos(3* PI /10 ), baseSegment5*sin(3* PI /10 ));
+    translate(baseSegment5*cos( PI /10 ), baseSegment5*sin(PI /10 ));
     iteratePentagonS(num, alt);
-    translate(-BASE_SEGMENT_5*cos( PI /10 ), -BASE_SEGMENT_5*sin(PI /10 ));
-    translate(-BASE_SEGMENT_5*cos(3* PI /10 ), -BASE_SEGMENT_5*sin(3* PI /10 ));
-    translate(-BASE_SEGMENT_5*cos(3* PI /10 ), BASE_SEGMENT_5*sin(3* PI /10 ));
-    translate(-BASE_SEGMENT_5*cos( PI /10 ), BASE_SEGMENT_5*sin(PI /10 ));
+    translate(-baseSegment5*cos( PI /10 ), -baseSegment5*sin(PI /10 ));
+    translate(-baseSegment5*cos(3* PI /10 ), -baseSegment5*sin(3* PI /10 ));
+    translate(-baseSegment5*cos(3* PI /10 ), baseSegment5*sin(3* PI /10 ));
+    translate(-baseSegment5*cos( PI /10 ), baseSegment5*sin(PI /10 ));
     iteratePentagonS(num, alt);
   pop();
 }
@@ -994,7 +994,7 @@ function hexagoN(){
     fill(frontColor);
     for (let m=0; m < 6; m++){
       noStroke();
-      triangle(0,0,WIDTH_6,height6,-WIDTH_6, height6);
+      triangle(0,0,width6,height6,-width6, height6);
       rotate(PI/3);
     }
   pop();
@@ -1028,10 +1028,10 @@ function iterateHexagonS(num,alt){
           //   scale(1/2);
           //   //rotate(PI/2);
           //   for (let m=1; m < 4; m++){
-          //     translate(WIDTH_6, height6);
+          //     translate(width6, height6);
           //     noStroke();
           //     iterateHexagonS(num-1, alt);
-          //     translate(-WIDTH_6, -height6);
+          //     translate(-width6, -height6);
           //     rotate(2 * PI /3);
           //   }
           // }   
@@ -1108,8 +1108,8 @@ function resetBackground () {
     frameRate(0.5);
   }
 
-  scalE = 1;
-  scale(scalE);//reset scaleß
+  scalE = 1;//reset scale
+  scale(scalE);//reset scale
   
   background(backColor);
   n = 0;
